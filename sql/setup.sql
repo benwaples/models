@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS vegetables;
+
+CREATE TABLE vegetables (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name TEXT NOT NULL,
+  color TEXT,
+  size TEXT
+);
