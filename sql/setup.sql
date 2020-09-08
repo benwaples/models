@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS vegetables;
 DROP TABLE IF EXISTS fruits;
+DROP TABLE IF EXISTS nuts;
 
 CREATE TABLE vegetables (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -13,4 +14,11 @@ CREATE TABLE fruits (
   name TEXT NOT NULL,
   color TEXT,
   size TEXT
-)
+);
+
+CREATE TABLE nuts (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name TEXT NOT NULL,
+  size TEXT CHECK ( size = ANY('{small, medium, large}')),
+  is_good BOOLEAN
+);
