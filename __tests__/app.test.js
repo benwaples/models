@@ -91,5 +91,21 @@ describe('demo routes', () => {
     });
   });
 
-  
+  it('deletes a fruit by id', async() => {
+    const apple = await Fruit.insert({
+      name: 'apple',
+      color: 'red',
+      size: 'medium'
+    });
+
+    const response = await request(app)
+      .delete(`/api/fruits/${apple.id}`);
+
+    expect(response.body).toEqual({
+      id: apple.id,
+      name: 'apple',
+      color: 'red',
+      size: 'medium'
+    });
+  });
 });
