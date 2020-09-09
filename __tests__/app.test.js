@@ -38,5 +38,33 @@ describe('demo routes', () => {
       size: 'medium' 
     });
   });
+
+  it('gets all fruit from the database', async() => {
+    await Promise.all([
+      Fruit.insert({
+        name: 'apple',
+        color: 'red',
+        size: 'medium'
+      }),
+      Fruit.insert({
+        name: 'orange',
+        color: 'orange',
+        size: 'medium'
+      }),
+      Fruit.insert({
+        name: 'strawberry',
+        color: 'red',
+        size: 'small'
+      })
+    ]);
+
+    const response = await request(app).get('/api/fruits');
+
+    expect(response.body).toEqual(expect.arrayContaining([
+      { id: expect.any(String), name: 'apple', color: 'red', size: 'medium' },
+      { id: expect.any(String), name: 'orange', color: 'orange', size: 'medium' },
+      { id: expect.any(String), name: 'strawberry', color: 'red', size: 'small' }
+    ]));
+  });
   
 });
