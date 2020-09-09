@@ -66,5 +66,30 @@ describe('demo routes', () => {
       { id: expect.any(String), name: 'strawberry', color: 'red', size: 'small' }
     ]));
   });
+
+  it('should edit a fruit based of an id and new fruit data', async() => {
+    const apple = await Fruit.insert({
+      name: 'apple',
+      color: 'red',
+      size: 'medium'
+    });
+    const editFruit = {
+      name: 'Granny Smith',
+      color: 'green',
+      size: 'medium'
+    };
+
+    const response = await request(app)
+      .put(`/api/fruits/${apple.id}`)
+      .send(editFruit);
+
+    expect(response.body).toEqual({
+      id: apple.id,
+      name: 'Granny Smith',
+      color: 'green',
+      size: 'medium'
+    });
+  });
+
   
 });
