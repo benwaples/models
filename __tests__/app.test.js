@@ -21,5 +21,22 @@ describe('demo routes', () => {
       size: 'medium'
     });
   });
+
+  it('gets a fruit by id via GET', async() => {
+    const createdFruit = await Fruit.insert({ 
+      name: 'apple', 
+      color: 'red', 
+      size: 'medium' });
+
+    const response = await request(app)
+      .get(`/api/fruits/${createdFruit.id}`);
+
+    expect(response.body).toEqual({
+      id: createdFruit.id,
+      name: 'apple', 
+      color: 'red', 
+      size: 'medium' 
+    });
+  });
   
 });
